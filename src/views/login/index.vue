@@ -29,10 +29,11 @@
         <el-input
           placeholder="password"
           name="password"
+          :type="passwordType"
           v-model="loginForm.password"
         />
-        <span class="show-pwd">
-          <svg-icon icon="eye" />
+        <span class="show-pwd" @click="onChangePwdType">
+          <svg-icon :icon="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
 
@@ -46,6 +47,8 @@
 <script setup>
 import { ref } from 'vue'
 import { validatePassword } from './rules'
+
+const passwordType = ref('password')
 
 // 用户数据
 const loginForm = ref({
@@ -70,6 +73,15 @@ const loginRules = ref({
     }
   ]
 })
+
+// 显示/隐藏密码
+const onChangePwdType = () => {
+  if (passwordType.value === 'password') {
+    passwordType.value = 'text'
+  } else {
+    passwordType.value = 'password'
+  }
+}
 </script>
 
 <style lang="scss" scoped>
