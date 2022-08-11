@@ -2,10 +2,11 @@
   <el-menu
     :unique-opened="true"
     :default-active="activeMenu"
-    background-color="$store.getters.cssVar.menuBg"
-    text-color="$store.getters.cssVar.menuText"
-    active-text-color="$store.getters.cssVar.menuActiveText"
+    :background-color="$store.getters.cssVar.menuBg"
+    :text-color="$store.getters.cssVar.menuText"
+    :active-text-color="$store.getters.cssVar.menuActiveText"
     router
+    :collapse="!$store.getters.sidebarOpened"
   >
     <sidebar-item
       v-for="item in routes"
