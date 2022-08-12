@@ -32,10 +32,10 @@ const isNull = (data) => {
 // 根据 routes 数据，返回对应 menu 规则数组
 export const generateMenus = (routes, basePath = '') => {
   const result = []
-  console.log('routes = ', routes)
+  // console.log('routes = ', routes)
 
   routes.forEach((item) => {
-    console.log('item = ', item)
+    // console.log('item = ', item)
     if (isNull(item.meta) && isNull(item.children)) return
     if (isNull(item.meta) && !isNull(item.children)) {
       result.push(...generateMenus(item.children))
@@ -43,7 +43,7 @@ export const generateMenus = (routes, basePath = '') => {
     }
 
     const routePath = path.resolve(basePath, item.path)
-    console.log('routePath = ', routePath)
+    // console.log('routePath = ', routePath)
 
     let route = result.find((item) => {
       return item.path === routePath
