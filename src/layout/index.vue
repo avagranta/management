@@ -11,6 +11,7 @@
     <div class="main-container">
       <div class="fixed-header">
         <navbar />
+        <tags-view></tags-view>
       </div>
       <app-main />
     </div>
@@ -22,6 +23,7 @@ import {} from 'vue'
 import Navbar from './components/Navbar.vue'
 import Sidebar from './components/Sidebar'
 import AppMain from './components/AppMain.vue'
+import TagsView from '@/components/TagsView'
 </script>
 
 <style lang="scss" scoped>
