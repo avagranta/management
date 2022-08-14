@@ -11,7 +11,7 @@
     <div class="main-container">
       <div class="fixed-header">
         <navbar />
-        <tags-view></tags-view>
+        <tags-view id="guide-tags"></tags-view>
       </div>
       <app-main />
     </div>

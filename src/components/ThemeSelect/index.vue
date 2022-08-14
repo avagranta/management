@@ -7,7 +7,7 @@
   >
     <div>
       <el-tooltip content="主题修改">
-        <svg-icon icon="change-theme" />
+        <svg-icon id="guide-theme" icon="change-theme" />
       </el-tooltip>
     </div>
     <template #dropdown>
