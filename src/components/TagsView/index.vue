@@ -1,6 +1,6 @@
 <template>
   <div class="tags-view-container">
-    <el-scrollerbar class="tags-view-wrapper">
+    <el-scrollbar class="tags-view-wrapper">
       <router-link
         class="tags-view-item"
         :class="isActive(tag) ? 'active' : ''"
@@ -20,7 +20,7 @@
           @click.prevent.stop="onCloseClick(index)"
         />
       </router-link>
-    </el-scrollerbar>
+    </el-scrollbar>
     <context-menu
       v-show="visible"
       :style="menuStyle"
