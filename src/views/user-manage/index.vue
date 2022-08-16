@@ -46,7 +46,9 @@
             <el-button type="primary" size="small" @click="onDetailClick"
               >查看</el-button
             >
-            <el-button type="info" size="small">角色</el-button>
+            <el-button type="info" size="small" @click="onShowRoleClick(row)"
+              >角色</el-button
+            >
             <el-button type="danger" size="small" @click="onRemoveClick(row)"
               >删除</el-button
             >
@@ -68,16 +70,24 @@
     </el-card>
   </div>
   <export-to-excel v-model="exportToExcelVisible"></export-to-excel>
+  <roles-dialog
+    v-model="roleDialogVisible"
+    :user-id="selectUserId"
+    @updateRole="getListData"
+  ></roles-dialog>
 </template>
 
 <script setup>
-import { ref, onActivated } from 'vue'
+import { ref, onActivated, watch } from 'vue'
 import { getUserManageList, deleteUser } from '@/api/user-manage'
 import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import ExportToExcel from './components/Export2Excel'
+import RolesDialog from './components/role.vue'
 
 const router = useRouter()
+
+const selectUserId = ref('')
 
 /**
  * excel导入点击事件
@@ -102,6 +112,19 @@ const onDetailClick = () => {
     confirmButtonText: '确定'
   })
 }
+
+/**
+ * 查看角色
+ */
+const roleDialogVisible = ref(false)
+const onShowRoleClick = (row) => {
+  selectUserId.value = row._id
+  roleDialogVisible.value = true
+}
+
+watch(roleDialogVisible, (val) => {
+  if (!val) selectUserId.value = ''
+})
 
 // 数据相关
 const tableData = ref([])
