@@ -40,10 +40,12 @@
           </template>
         </el-table-column>
         <el-table-column label="操作" fixed="right" width="260">
-          <template #default>
+          <template #default="{ row }">
             <el-button type="primary" size="small">查看</el-button>
             <el-button type="info" size="small">角色</el-button>
-            <el-button type="danger" size="small">删除</el-button>
+            <el-button type="danger" size="small" @click="onRemoveClick(row)"
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -65,8 +67,9 @@
 
 <script setup>
 import { ref, onActivated } from 'vue'
-import { getUserManageList } from '@/api/user-manage'
+import { getUserManageList, deleteUser } from '@/api/user-manage'
 import { useRouter } from 'vue-router'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 const router = useRouter()
 
@@ -108,6 +111,20 @@ const handleSizeChange = (currentSize) => {
 const handleCurrentChange = (currentPage) => {
   page.value = currentPage
   getListData()
+}
+
+/**
+ * 删除
+ */
+
+const onRemoveClick = (row) => {
+  ElMessageBox.confirm('确定要删除用户' + row.username + '吗', {
+    type: 'warning'
+  }).then(async () => {
+    await deleteUser(row._id)
+    ElMessage.success('删除成功')
+    getListData()
+  })
 }
 
 // 导入用户后刷新数据
