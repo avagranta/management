@@ -43,7 +43,9 @@
         </el-table-column>
         <el-table-column label="操作" fixed="right" width="260">
           <template #default="{ row }">
-            <el-button type="primary" size="small">查看</el-button>
+            <el-button type="primary" size="small" @click="onDetailClick"
+              >查看</el-button
+            >
             <el-button type="info" size="small">角色</el-button>
             <el-button type="danger" size="small" @click="onRemoveClick(row)"
               >删除</el-button
@@ -90,6 +92,15 @@ const onImportExcelClick = () => {
 const exportToExcelVisible = ref(false)
 const onExportToExcelClick = () => {
   exportToExcelVisible.value = true
+}
+
+/**
+ * 查看详情信息
+ */
+const onDetailClick = () => {
+  ElMessageBox.alert('功能暂未开放，敬请期待', '提示', {
+    confirmButtonText: '确定'
+  })
 }
 
 // 数据相关
