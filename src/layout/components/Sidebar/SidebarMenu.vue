@@ -25,9 +25,10 @@ import SidebarItem from './SidebarItem.vue'
 const router = useRouter()
 const routes = computed(() => {
   const filterRoutes = filterRouters(router.getRoutes())
+  console.log('filterRoutes', filterRoutes)
   return generateMenus(filterRoutes)
 })
-
+console.log('getRoutes', router.getRoutes())
 const route = useRoute()
 const activeMenu = computed(() => {
   const { path } = route

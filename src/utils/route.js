@@ -4,7 +4,7 @@ import path from 'path'
 const getChildrenRoutes = (routes) => {
   const result = []
   routes.forEach((route) => {
-    if (route.children && route.children.length) {
+    if (route.children && route.children.length > 0) {
       result.push(...route.children)
     }
   })
@@ -14,11 +14,17 @@ const getChildrenRoutes = (routes) => {
 // 某个路由为其他子路由时，剔除该一级路由
 export const filterRouters = (routes) => {
   const childrenRoutes = getChildrenRoutes(routes)
-  return routes.filter((route) => {
+  // return routes.filter((route) => {
+  //   return !childrenRoutes.find((childrenRoute) => {
+  //     return childrenRoute.path === route.path
+  //   })
+  // })
+  const res = routes.filter((route) => {
     return !childrenRoutes.find((childrenRoute) => {
       return childrenRoute.path === route.path
     })
   })
+  return res
 }
 
 // 判断数据是否为空值
@@ -45,19 +51,17 @@ export const generateMenus = (routes, basePath = '') => {
     const routePath = path.resolve(basePath, item.path)
     // console.log('routePath = ', routePath)
 
-    let route = result.find((item) => {
-      return item.path === routePath
-    })
+    let route = result.find((item) => item.path === routePath)
     if (!route) {
       route = {
         ...item,
         path: routePath,
         children: []
       }
-    }
 
-    if (route.meta.icon && route.meta.title) {
-      result.push(route)
+      if (route.meta.icon && route.meta.title) {
+        result.push(route)
+      }
     }
 
     if (item.children) {
