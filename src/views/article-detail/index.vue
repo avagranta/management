@@ -12,7 +12,26 @@
   </div>
 </template>
 
-...
+<script setup>
+import { ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { articleDetail } from '@/api/article'
+
+// 编辑
+const router = useRouter()
+const onEditClick = () => {
+  router.push(`/article/editor/${articleId}`)
+}
+
+// 获取数据
+const route = useRoute()
+const articleId = route.params.id
+const detail = ref({})
+const getArticleDetail = async () => {
+  detail.value = await articleDetail(articleId)
+}
+getArticleDetail()
+</script>
 
 <style lang="scss" scoped>
 .article-detail-container {
@@ -44,20 +63,3 @@
   }
 }
 </style>
-
-<script setup>
-import { ref } from 'vue'
-import { useRoute } from 'vue-router'
-import { articleDetail } from '@/api/article'
-
-// 获取数据
-const route = useRoute()
-const articleId = route.params.id
-const detail = ref({})
-const getArticleDetail = async () => {
-  detail.value = await articleDetail(articleId)
-}
-getArticleDetail()
-</script>
-
-<style></style>
