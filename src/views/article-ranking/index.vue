@@ -53,9 +53,10 @@
 
 <script setup>
 import { ref, onActivated, onMounted } from 'vue'
-import { getArticleList } from '@/api/article'
+import { getArticleList, deleteArticle } from '@/api/article'
 import { dynamicData, selectDynamicLabel, tableColumns } from './dynamic'
 import { tableRef, initSortable } from './sortable'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 // 数据相关
 const tableData = ref([])
@@ -90,6 +91,18 @@ const handleSizeChange = (currentSize) => {
 const handleCurrentChange = (currentPage) => {
   page.value = currentPage
   getListData()
+}
+
+// 删除用户
+const onRemoveClick = (row) => {
+  ElMessageBox.confirm('确定要删除文章' + row.title + '吗', {
+    type: 'warning'
+  }).then(async () => {
+    await deleteArticle(row._id)
+    ElMessage.success('文章删除成功')
+    // 重新渲染数据
+    getListData()
+  })
 }
 
 // 表格拖拽相关
