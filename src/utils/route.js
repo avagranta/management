@@ -1,4 +1,4 @@
-import path from 'path'
+// import path from 'path'
 
 // 返回所有子路由
 const getChildrenRoutes = (routes) => {
@@ -48,14 +48,27 @@ export const generateMenus = (routes, basePath = '') => {
       return
     }
 
-    const routePath = path.resolve(basePath, item.path)
+    // const routePath = path.resolve(basePath, item.path)
     // console.log('routePath = ', routePath)
 
-    let route = result.find((item) => item.path === routePath)
+    // let route = result.find((item) => item.path === routePath)
+    // if (!route) {
+    //   route = {
+    //     ...item,
+    //     path: routePath,
+    //     children: []
+    //   }
+
+    //   if (route.meta.icon && route.meta.title) {
+    //     result.push(route)
+    //   }
+    // }
+    let route = result.find((ele) => ele.path === item.path)
     if (!route) {
       route = {
-        ...item,
-        path: routePath,
+        meta: item.meta || {},
+        path: item.path || '',
+        name: item.name || '',
         children: []
       }
 
@@ -63,9 +76,8 @@ export const generateMenus = (routes, basePath = '') => {
         result.push(route)
       }
     }
-
     if (item.children) {
-      route.children.push(...generateMenus(item.children, route.path))
+      route.children.push(...generateMenus(item.children))
     }
   })
   return result
