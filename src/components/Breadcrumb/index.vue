@@ -24,6 +24,7 @@ import { useStore } from 'vuex'
 const route = useRoute()
 const breadcrumbData = ref([])
 const getBreadcrumbData = () => {
+  console.log(route.matched)
   breadcrumbData.value = route.matched.filter((item) => {
     return item.meta && item.meta.title
   })
